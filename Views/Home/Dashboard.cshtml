@@ -1,0 +1,48 @@
+@* ViewBag.CurrentUser *@
+@* ViewBag.AllWeddings *@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Wedding Planner @ViewBag.CurrentUser.FirstName</h1>
+    <a href="/LogOut">LogOut</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th>Guests</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Wedding w in ViewBag.AllWeddings)
+        {
+            <tr>
+                <td><a href="/Wedding/@w.WeddingId">@w.WedderOne & @w.WedderTwo</a></td>
+                <td>@w.Date.ToString("d")</td>
+                <td>@w.Guests.Count</td>
+                <td>@if (ViewBag.CurrentUser.UserId == w.PostedBy.UserId)
+                    {
+                        <form action="/Wedding/@w.WeddingId/Delete" method="post"><button class="btn btn-danger">Delete</button>
+                        </form>
+                    }
+                    else if (w.Guests.Any(guest => guest.UserId == ViewBag.CurrentUser.UserId))
+                    {
+                        <form action="/Guest/@w.WeddingId/Guest/Delete" method="post"><button
+                                class="btn btn-warning">UnRSVP</button></form>
+                    }
+                    else
+                {
+                <form action="/Guest/@w.WeddingId/Guest" method="post"><button class="btn btn-primary">RSVP</button>
+                </form>
+                }
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Wedding">Add a Wedding</a>

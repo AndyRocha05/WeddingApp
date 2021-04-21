@@ -1,0 +1,33 @@
+
+    @{
+        Wedding w = ViewBag.Wedding;
+    }
+    
+    
+    <h1 class="display-4">@ViewBag.Wedding.WedderOne and @ViewBag.Wedding.WedderTwo's Wedding Info </h1>
+    <a href="/LogOut">LogOut</a><a href="/Dashboard">Dashboard</a>
+    <h3>DaTe: @ViewBag.Wedding.Date.ToString("d")</h3>
+    <h4>Posted by: @ViewBag.Wedding.PostedBy.FirstName  @ViewBag.Wedding.PostedBy.LastName</h4>
+
+    <h3>Guests:</h3>
+    <ul>
+        @foreach(var guest in @ViewBag.Wedding.Guests){
+
+        <li>@guest.UserToWedding.FirstName @guest.UserToWedding.LastName</li>
+        }
+    </ul>
+@if (ViewBag.CurrentUser.UserId == w.PostedBy.UserId)
+                    {
+                        <form action="/Wedding/@w.WeddingId/Delete" method="post"><button class="btn btn-danger">Delete</button>
+                        </form>
+                    }
+                    else if (w.Guests.Any(guest => guest.UserId == ViewBag.CurrentUser.UserId))
+                    {
+                        <form action="/Guest/@w.WeddingId/Guest/Delete" method="post"><button
+                                class="btn btn-warning">UnRSVP</button></form>
+                    }
+                    else
+                {
+                <form action="/Guest/@w.WeddingId/Guest" method="post"><button class="btn btn-primary">RSVP</button>
+                </form>
+                }

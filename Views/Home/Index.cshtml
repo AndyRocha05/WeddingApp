@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model User
+<div class="d-flex">
+    <div class="col-lg-6">
+        <form action="/New/User" method="post">
+            <h2>Reguester</h2>
+            <div class="form-goup">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-goup">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-goup">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-goup">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-goup">
+                <label asp-for="Confirm"></label>
+                <input asp-for="Confirm" class="form-control">
+                <span asp-validation-for="Confirm" class="text-danger"></span>
+            </div>
+            <button class="btn btn-primary">Reguester</button>
+        </form>
+    </div>
+    <div class="col-lg-6">
+        <partial name="LoginFormPartial"></partial>
+    </div>
+</div>
